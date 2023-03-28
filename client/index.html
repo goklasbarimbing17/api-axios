@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn API AXIOS</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>API AXIOS</h1>
+    <button onclick="addUser()">Add User</button>
+    <button onclick="updateUser()">Update User</button>
+    <button onclick="deleteUser()">Delete User</button>
+    <script>
+        const myInstance = axios.create({
+            baseURL: "http://localhost:3000",
+        });
+
+        // myInstance
+        //     .get("/users")
+        //     .then(({data}) =>{
+        //         console.log(data);
+        //     })
+        //     .catch((err)=>{
+        //         console.log(err);
+        //     })
+        //     .finally(()=>{
+        //         console.log("Request Selesai");
+        //     });
+
+        function addUser(){
+            const newUser={
+                name : "Ungu",
+                email : "ungu@gmail.com",
+            };
+
+            myInstance
+            .post("/users", newUser)
+            .then(({data}) =>{
+                console.log(data);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+            .finally(()=>{
+                console.log("Request Selesai");
+            });
+        }
+
+        function updateUser(){
+            const updateUser = {
+                name : "Budi",
+                email: "budi@gmail.com",
+            };
+
+            const userId = 2;
+
+            myInstance({
+                method: "PUT",
+                url : `/users/${userId}`,
+                data : updateUser,
+            })
+            .then(({data}) =>{
+                console.log(data);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+            .finally(()=>{
+                console.log("Request Selesai");
+            });
+        }
+    
+        function deleteUser(){
+            const userId = 5;
+
+            myInstance
+            .delete(`users/${userId}`)
+            .then(({data}) =>{
+                console.log(data);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+            .finally(()=>{
+                console.log("Request Selesai");
+            });
+        }
+    </script>
+</body>
+</html>
